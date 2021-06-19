@@ -21,7 +21,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"todolist/todolist"
+	"toDoList/todolist"
 )
 
 // todolistRootCmd represents the todolist command

@@ -15,7 +15,7 @@ limitations under the License.
 */
 package main
 
-import "todolist/cmd"
+import "toDoList/cmd"
 
 func main() {
 	cmd.Execute()
