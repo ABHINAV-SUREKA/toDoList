@@ -31,7 +31,13 @@ func Add(taskName string) {
 }
 
 func Done(taskId int) {
-	//
+	var toDoList toDoList
+	if fileExists(filename) {
+		toDoList = toDoListFromFile(filename)
+		toDoList.markDone(taskId)
+	} else {
+		fmt.Println("No To Do List found\nAdd a task")
+	}
 }
 
 func (tdl toDoList) undone(taskId int) {

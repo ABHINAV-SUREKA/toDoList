@@ -2,6 +2,7 @@ package todolist
 
 import (
 	"fmt"
+	"os"
 	"strings"
 )
 
@@ -38,4 +39,33 @@ func (tdl *toDoList) addTask(taskName string) {
 		done:     "undone",
 	}
 	*tdl = append(*tdl, task)
+}
+
+func (tdl *toDoList) markDone(taskId int) {
+	if taskId > len(*tdl)-1 && taskId < 0 {
+		fmt.Errorf("invalid task id. Try again")
+		return
+	}
+	if len(*tdl) == 0 {
+		fmt.Println("To Do List empty\nAdd a task")
+		return
+	}
+	for i, task := range *tdl {
+		if i == taskId {
+			if task.done == "undone" {
+				task.done = "done"
+				err := toDoListToFile(filename, *tdl)
+				if err != nil {
+					fmt.Println("Error:", err)
+					os.Exit(1)
+				} else {
+					fmt.Println(task.taskName + " marked as completed")
+					return
+				}
+			} else {
+				fmt.Println(task.taskName + " already done")
+				return
+			}
+		}
+	}
 }
