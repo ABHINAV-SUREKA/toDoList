@@ -40,19 +40,21 @@ func Done(taskId int) {
 	}
 }
 
-func (tdl toDoList) undone(taskId int) {
-	//
+func UnDone(taskId int) {
+	var toDoList toDoList
+	if fileExists(filename) {
+		toDoList = toDoListFromFile(filename)
+		toDoList.markUnDone(taskId)
+	} else {
+		fmt.Println("No To Do List found\nAdd a task")
+	}
 }
 
 func List() {
 	var toDoList toDoList
 	if fileExists(filename) {
 		toDoList = toDoListFromFile(filename)
-		if len(toDoList) > 0 {
-			fmt.Println(toDoList.unDoneTasksToString())
-		} else {
-			fmt.Println("You have finished all tasks!")
-		}
+		fmt.Println(toDoList.unDoneTasksToString())
 	} else {
 		fmt.Println("No To Do List found\nAdd a task")
 	}

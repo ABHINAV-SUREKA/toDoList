@@ -24,6 +24,9 @@ func (tdl toDoList) toString() string {
 
 func (tdl toDoList) unDoneTasksToString() string {
 	toDoListStr := ""
+	if len(tdl) == 0 {
+		return "To Do List empty\nAdd a task"
+	}
 	fmt.Println("Tasks to be done:")
 	for i, task := range tdl {
 		if task.done == "undone" {
@@ -42,9 +45,9 @@ func (tdl *toDoList) addTask(taskName string) {
 }
 
 func (tdl *toDoList) markDone(taskId int) {
-	if taskId > len(*tdl)-1 && taskId < 0 {
-		fmt.Errorf("invalid task id. Try again")
-		return
+	if taskId > len(*tdl)-1 || taskId < 0 {
+		fmt.Println("Error: invalid task id. Try again")
+		os.Exit(1)
 	}
 	if len(*tdl) == 0 {
 		fmt.Println("To Do List empty\nAdd a task")
@@ -54,6 +57,7 @@ func (tdl *toDoList) markDone(taskId int) {
 		if i == taskId {
 			if task.done == "undone" {
 				task.done = "done"
+				(*tdl)[i] = task
 				err := toDoListToFile(filename, *tdl)
 				if err != nil {
 					fmt.Println("Error:", err)
@@ -64,6 +68,36 @@ func (tdl *toDoList) markDone(taskId int) {
 				}
 			} else {
 				fmt.Println(task.taskName + " already done")
+				return
+			}
+		}
+	}
+}
+
+func (tdl *toDoList) markUnDone(taskId int) {
+	if taskId > len(*tdl)-1 || taskId < 0 {
+		fmt.Println("Error: invalid task id. Try again")
+		os.Exit(1)
+	}
+	if len(*tdl) == 0 {
+		fmt.Println("To Do List empty\nAdd a task")
+		return
+	}
+	for i, task := range *tdl {
+		if i == taskId {
+			if task.done == "done" {
+				task.done = "undone"
+				(*tdl)[i] = task
+				err := toDoListToFile(filename, *tdl)
+				if err != nil {
+					fmt.Println("Error:", err)
+					os.Exit(1)
+				} else {
+					fmt.Println(task.taskName + " marked as incomplete")
+					return
+				}
+			} else {
+				fmt.Println(task.taskName + " is already incomplete")
 				return
 			}
 		}

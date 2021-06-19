@@ -16,7 +16,10 @@ limitations under the License.
 package cmd
 
 import (
+	"fmt"
 	"github.com/spf13/cobra"
+	"os"
+	"strconv"
 	"strings"
 	"todolist/todolist"
 )
@@ -36,7 +39,12 @@ var todolistAddCmd = &cobra.Command{
 	Args:                  cobra.MaximumNArgs(25),
 	DisableFlagsInUseLine: true,
 	Run: func(cmd *cobra.Command, args []string) {
-		todolist.Add(strings.Join(args, " "))
+		task := strings.Join(args, " ")
+		if strings.TrimSpace(task) != "" {
+			todolist.Add(task)
+		} else {
+			fmt.Println("Task cannot be empty. Try again")
+		}
 	},
 }
 
@@ -53,7 +61,7 @@ var todolistCleanupCmd = &cobra.Command{
 
 // todolistDoneCmd represents the todolist command
 var todolistDoneCmd = &cobra.Command{
-	Use:                   "done",
+	Use:                   "done <task_id>",
 	Short:                 "Mark task as done",
 	Long:                  "Mark task as done",
 	Args:                  cobra.ExactArgs(1),
@@ -61,7 +69,12 @@ var todolistDoneCmd = &cobra.Command{
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		todolist.Test()
+		taskId, err := strconv.Atoi(args[0])
+		if err != nil {
+			fmt.Printf("%v not a valid integer. Try again\n", args[0])
+			os.Exit(1)
+		}
+		todolist.Done(taskId)
 	},
 }
 
@@ -78,7 +91,7 @@ var todolistListCmd = &cobra.Command{
 
 // todolistUndoneCmd represents the todolist command
 var todolistUndoneCmd = &cobra.Command{
-	Use:                   "undone",
+	Use:                   "undone <task_id>",
 	Short:                 "Mark task as not done",
 	Long:                  "Mark task as not done",
 	Args:                  cobra.ExactArgs(1),
@@ -86,7 +99,12 @@ var todolistUndoneCmd = &cobra.Command{
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		todolist.Test()
+		taskId, err := strconv.Atoi(args[0])
+		if err != nil {
+			fmt.Printf("%v not a valid integer. Try again\n", args[0])
+			os.Exit(1)
+		}
+		todolist.UnDone(taskId)
 	},
 }
 
