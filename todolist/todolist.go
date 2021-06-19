@@ -1,32 +1,56 @@
 package todolist
 
-import "fmt"
+import (
+	"fmt"
+	"io/ioutil"
+	"os"
+)
 
-type todolist struct {
-	index int
-	task  string
+type task struct {
+	taskName string
+	done     string
+}
+type toDoList []task
+
+var filename = "_todolist"
+
+func Add(taskName string) {
+	if fileExists(filename) {
+		toDoListFromFile(filename)
+	} else {
+		toDoList := newToDoList()
+		task := task{
+			taskName: taskName,
+			done:     "undone",
+		}
+		toDoList = append(toDoList, task)
+
+		err := ioutil.WriteFile(filename, []byte(toDoList.toString()), 0666)
+		if err != nil {
+			fmt.Println("Error:", err)
+			os.Exit(1)
+		} else {
+			fmt.Println(taskName + " added to the list")
+		}
+	}
 }
 
-func (tdl todolist) add(taskName string) {
+func (tdl toDoList) done(taskId int) {
 	//
 }
 
-func (tdl todolist) done(taskId int) {
+func (tdl toDoList) undone(taskId int) {
 	//
 }
 
-func (tdl todolist) undone(taskId int) {
-	//
-}
-
-func (tdl todolist) list() []todolist {
+func (tdl toDoList) list() []toDoList {
 	return nil
+}
+
+func (tdl toDoList) cleanup() {
+	//
 }
 
 func Test() {
 	fmt.Println("test")
-}
-
-func (tdl todolist) cleanup() {
-	//
 }

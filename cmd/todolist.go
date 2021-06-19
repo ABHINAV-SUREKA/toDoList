@@ -16,11 +16,7 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
-	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
-	"os"
 	"todolist/todolist"
 )
 
@@ -38,25 +34,26 @@ var todolistRootCmd = &cobra.Command{
 
 // todolistAddCmd represents the todolist command
 var todolistAddCmd = &cobra.Command{
-	Use:   "add",
-	Short: "Add task to the list",
-	Long: `Add task to the list 
-For example:
-todolist add <task_name>`,
+	Use:                   "add <task_name>",
+	Short:                 "Add task to the list",
+	Long:                  "Add task to the list",
+	Args:                  cobra.ExactArgs(1),
+	DisableFlagsInUseLine: true,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		todolist.Test()
+		if len(args) == 1 {
+			todolist.Add(args[0])
+		}
 	},
 }
 
 // todolistCleanupCmd represents the todolist command
 var todolistCleanupCmd = &cobra.Command{
-	Use:   "cleanup",
-	Short: "Cleanup done tasks",
-	Long: `Cleanup done tasks 
-For example:
-todolist cleanup `,
+	Use:                   "cleanup",
+	Short:                 "Cleanup done tasks",
+	Long:                  "Cleanup done tasks",
+	DisableFlagsInUseLine: true,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
@@ -66,11 +63,11 @@ todolist cleanup `,
 
 // todolistDoneCmd represents the todolist command
 var todolistDoneCmd = &cobra.Command{
-	Use:   "done",
-	Short: "Mark task as done",
-	Long: `Mark task as done 
-For example:
-todolist done <task_id> `,
+	Use:                   "done",
+	Short:                 "Mark task as done",
+	Long:                  "Mark task as done",
+	Args:                  cobra.ExactArgs(1),
+	DisableFlagsInUseLine: true,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
@@ -80,11 +77,10 @@ todolist done <task_id> `,
 
 // todolistListCmd represents the todolist command
 var todolistListCmd = &cobra.Command{
-	Use:   "list",
-	Short: "List all tasks still to do",
-	Long: `List all tasks still to do 
-For example:
-todolist list `,
+	Use:                   "list",
+	Short:                 "List all tasks still to do",
+	Long:                  "List all tasks still to do",
+	DisableFlagsInUseLine: true,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
@@ -94,11 +90,11 @@ todolist list `,
 
 // todolistUndoneCmd represents the todolist command
 var todolistUndoneCmd = &cobra.Command{
-	Use:   "undone",
-	Short: "Mark task as not done",
-	Long: `Mark task as not done
-For example:
-todolist undone <task_id> `,
+	Use:                   "undone",
+	Short:                 "Mark task as not done",
+	Long:                  "Mark task as not done",
+	Args:                  cobra.ExactArgs(1),
+	DisableFlagsInUseLine: true,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
@@ -113,7 +109,6 @@ func Execute() {
 }
 
 func init() {
-	cobra.OnInitialize(initConfig)
 	todolistRootCmd.AddCommand(todolistAddCmd, todolistCleanupCmd, todolistDoneCmd, todolistListCmd, todolistUndoneCmd)
 	// Here you will define your flags and configuration settings.
 
@@ -124,32 +119,9 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// todolistCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	todolistRootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.toDoList.yaml)")
+	//todolistRootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.toDoList.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	todolistRootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-}
-
-// initConfig reads in config file and ENV variables if set.
-func initConfig() {
-	if cfgFile != "" {
-		// Use config file from the flag.
-		viper.SetConfigFile(cfgFile)
-	} else {
-		// Find home directory.
-		home, err := homedir.Dir()
-		cobra.CheckErr(err)
-
-		// Search config in home directory with name ".toDoList" (without extension).
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".toDoList")
-	}
-
-	viper.AutomaticEnv() // read in environment variables that match
-
-	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
-	}
+	//todolistRootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
