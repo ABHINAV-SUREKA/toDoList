@@ -23,10 +23,8 @@ func toDoListFromFile(filename string) toDoList {
 	}
 	toDoList := newToDoList()
 	taskInfoList := strings.Split(string(byteSlice), "\n")
-	count := 0
 	for _, taskInfo := range taskInfoList {
 		if len(taskInfo) > 0 {
-			count = count + 1
 			taskInfoSlice := strings.SplitN(taskInfo, "|", 2)
 			task := newTask()
 			task.taskName = taskInfoSlice[0]

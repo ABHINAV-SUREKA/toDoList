@@ -36,7 +36,7 @@ func Done(taskId int) {
 		toDoList = toDoListFromFile(filename)
 		toDoList.markDone(filename, taskId)
 	} else {
-		fmt.Println("No To Do List found\nAdd a task")
+		fmt.Println("No To Do List found\nAdd new task")
 	}
 }
 
@@ -46,7 +46,7 @@ func UnDone(taskId int) {
 		toDoList = toDoListFromFile(filename)
 		toDoList.markUnDone(filename, taskId)
 	} else {
-		fmt.Println("No To Do List found\nAdd a task")
+		fmt.Println("No To Do List found\nAdd new task")
 	}
 }
 
@@ -56,7 +56,7 @@ func List() {
 		toDoList = toDoListFromFile(filename)
 		fmt.Println(toDoList.unDoneTasksToString())
 	} else {
-		fmt.Println("No To Do List found\nAdd a task")
+		fmt.Println("No To Do List found\nAdd new task")
 	}
 }
 
@@ -66,6 +66,6 @@ func Cleanup() {
 		toDoList = toDoListFromFile(filename)
 		toDoList.cleanupDoneTasks(filename)
 	} else {
-		fmt.Println("No To Do List found\nAdd a task")
+		fmt.Println("No To Do List found\nAdd new task")
 	}
 }

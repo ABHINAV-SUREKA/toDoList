@@ -31,7 +31,6 @@ func (tdl toDoList) toString(deleteIndexes ...int) string {
 			toDoListStr = toDoListStr + task.taskName + "|" + task.done + "\n"
 		}
 	}
-
 	return toDoListStr
 }
 
@@ -40,13 +39,16 @@ func (tdl toDoList) unDoneTasksToString() string {
 	if len(tdl) == 0 {
 		return "To Do List empty\nAdd a task"
 	}
-	fmt.Println("Tasks to be done:")
 	for i, task := range tdl {
 		if task.done == "undone" {
 			toDoListStr = toDoListStr + fmt.Sprintf("%v %v\n", i, task.taskName)
 		}
 	}
-	return strings.TrimSuffix(toDoListStr, "\n")
+	unDoneTasksStr := strings.TrimSuffix(toDoListStr, "\n")
+	if unDoneTasksStr == "" {
+		return "Bravo! All tasks completed!\nAdd new task"
+	}
+	return "Tasks to be done:\n" + unDoneTasksStr
 }
 
 func (tdl *toDoList) addTask(taskName string) {
@@ -63,7 +65,7 @@ func (tdl *toDoList) markDone(fileName string, taskId int) {
 		os.Exit(1)
 	}
 	if len(*tdl) == 0 {
-		fmt.Println("To Do List empty\nAdd a task")
+		fmt.Println("To Do List empty\nAdd new task")
 		return
 	}
 	for i, task := range *tdl {
@@ -93,7 +95,7 @@ func (tdl *toDoList) markUnDone(fileName string, taskId int) {
 		os.Exit(1)
 	}
 	if len(*tdl) == 0 {
-		fmt.Println("To Do List empty\nAdd a task")
+		fmt.Println("To Do List empty\nAdd new task")
 		return
 	}
 	for i, task := range *tdl {
@@ -119,7 +121,7 @@ func (tdl *toDoList) markUnDone(fileName string, taskId int) {
 
 func (tdl *toDoList) cleanupDoneTasks(fileName string) {
 	if len(*tdl) == 0 {
-		fmt.Println("To Do List empty\nAdd a task")
+		fmt.Println("To Do List empty\nAdd new task")
 		return
 	}
 	var deleteIndexes []int
