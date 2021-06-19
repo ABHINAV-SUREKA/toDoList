@@ -2,34 +2,40 @@ package todolist
 
 import (
 	"fmt"
-	"io/ioutil"
-	"os"
+	"strings"
 )
+
+func newTask() task {
+	return task{}
+}
 
 func newToDoList() toDoList {
 	return toDoList{}
 }
 
-func fileExists(filename string) bool {
-	info, err := os.Stat(filename)
-	if os.IsNotExist(err) {
-		return false
-	}
-	return !info.IsDir()
-}
-
-func toDoListFromFile(filename string) {
-	_, err := ioutil.ReadFile(filename)
-	if err != nil {
-		fmt.Println("Error:", err)
-		os.Exit(1)
-	}
-}
-
 func (tdl toDoList) toString() string {
 	toDoListStr := ""
 	for _, task := range tdl {
-		toDoListStr = toDoListStr + task.taskName + "\t" + task.done + "\n"
+		toDoListStr = toDoListStr + task.taskName + "|" + task.done + "\n"
 	}
 	return toDoListStr
+}
+
+func (tdl toDoList) unDoneTasksToString() string {
+	toDoListStr := ""
+	fmt.Println("Tasks to be done:")
+	for i, task := range tdl {
+		if task.done == "undone" {
+			toDoListStr = toDoListStr + fmt.Sprintf("%v %v\n", i, task.taskName)
+		}
+	}
+	return strings.TrimSuffix(toDoListStr, "\n")
+}
+
+func (tdl *toDoList) addTask(taskName string) {
+	task := task{
+		taskName: taskName,
+		done:     "undone",
+	}
+	*tdl = append(*tdl, task)
 }

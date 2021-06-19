@@ -2,7 +2,6 @@ package todolist
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 )
 
@@ -15,27 +14,23 @@ type toDoList []task
 var filename = "_todolist"
 
 func Add(taskName string) {
+	var toDoList toDoList
 	if fileExists(filename) {
-		toDoListFromFile(filename)
+		toDoList = toDoListFromFile(filename)
 	} else {
-		toDoList := newToDoList()
-		task := task{
-			taskName: taskName,
-			done:     "undone",
-		}
-		toDoList = append(toDoList, task)
-
-		err := ioutil.WriteFile(filename, []byte(toDoList.toString()), 0666)
-		if err != nil {
-			fmt.Println("Error:", err)
-			os.Exit(1)
-		} else {
-			fmt.Println(taskName + " added to the list")
-		}
+		toDoList = newToDoList()
+	}
+	toDoList.addTask(taskName)
+	err := toDoListToFile(filename, toDoList)
+	if err != nil {
+		fmt.Println("Error:", err)
+		os.Exit(1)
+	} else {
+		fmt.Println(taskName + " added to the list")
 	}
 }
 
-func (tdl toDoList) done(taskId int) {
+func Done(taskId int) {
 	//
 }
 
@@ -43,8 +38,18 @@ func (tdl toDoList) undone(taskId int) {
 	//
 }
 
-func (tdl toDoList) list() []toDoList {
-	return nil
+func List() {
+	var toDoList toDoList
+	if fileExists(filename) {
+		toDoList = toDoListFromFile(filename)
+		if len(toDoList) > 0 {
+			fmt.Println(toDoList.unDoneTasksToString())
+		} else {
+			fmt.Println("You have finished all tasks!")
+		}
+	} else {
+		fmt.Println("No To Do List found\nAdd a task")
+	}
 }
 
 func (tdl toDoList) cleanup() {

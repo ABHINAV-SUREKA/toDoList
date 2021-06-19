@@ -17,6 +17,7 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
+	"strings"
 	"todolist/todolist"
 )
 
@@ -25,11 +26,6 @@ var todolistRootCmd = &cobra.Command{
 	Use:   "todolist",
 	Short: "A To Do List CLI",
 	Long:  "To Do List CLI is a tool to organise your daily tasks with add, remove, done and undone functionalities",
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	/*Run: func(cmd *cobra.Command, args []string) {
-		todolist.Test()
-	},*/
 }
 
 // todolistAddCmd represents the todolist command
@@ -37,14 +33,10 @@ var todolistAddCmd = &cobra.Command{
 	Use:                   "add <task_name>",
 	Short:                 "Add task to the list",
 	Long:                  "Add task to the list",
-	Args:                  cobra.ExactArgs(1),
+	Args:                  cobra.MaximumNArgs(25),
 	DisableFlagsInUseLine: true,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) == 1 {
-			todolist.Add(args[0])
-		}
+		todolist.Add(strings.Join(args, " "))
 	},
 }
 
@@ -54,8 +46,6 @@ var todolistCleanupCmd = &cobra.Command{
 	Short:                 "Cleanup done tasks",
 	Long:                  "Cleanup done tasks",
 	DisableFlagsInUseLine: true,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
 		todolist.Test()
 	},
@@ -81,10 +71,8 @@ var todolistListCmd = &cobra.Command{
 	Short:                 "List all tasks still to do",
 	Long:                  "List all tasks still to do",
 	DisableFlagsInUseLine: true,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		todolist.Test()
+		todolist.List()
 	},
 }
 
