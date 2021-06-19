@@ -37,6 +37,6 @@ func toDoListFromFile(filename string) toDoList {
 	return toDoList
 }
 
-func toDoListToFile(filename string, tdl toDoList) error {
-	return ioutil.WriteFile(filename, []byte(tdl.toString()), 0666)
+func toDoListToFile(filename string, tdl toDoList, deleteIndexes ...int) error {
+	return ioutil.WriteFile(filename, []byte(tdl.toString(deleteIndexes...)), 0666)
 }

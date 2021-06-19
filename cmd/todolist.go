@@ -55,7 +55,7 @@ var todolistCleanupCmd = &cobra.Command{
 	Long:                  "Cleanup done tasks",
 	DisableFlagsInUseLine: true,
 	Run: func(cmd *cobra.Command, args []string) {
-		todolist.Test()
+		todolist.Cleanup()
 	},
 }
 
