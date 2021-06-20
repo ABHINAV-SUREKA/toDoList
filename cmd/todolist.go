@@ -74,7 +74,7 @@ var todolistDoneCmd = &cobra.Command{
 			fmt.Printf("%v not a valid integer. Try again\n", args[0])
 			os.Exit(1)
 		}
-		todolist.Done(taskId)
+		todolist.Done(taskId - 1) // -1 because slice index starts from 0
 	},
 }
 
@@ -104,7 +104,7 @@ var todolistUndoneCmd = &cobra.Command{
 			fmt.Printf("%v not a valid integer. Try again\n", args[0])
 			os.Exit(1)
 		}
-		todolist.UnDone(taskId)
+		todolist.UnDone(taskId - 1) // -1 because slice index starts from 0
 	},
 }
 

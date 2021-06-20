@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// fileExists : check if the file exist
 func fileExists(filename string) bool {
 	info, err := os.Stat(filename)
 	if os.IsNotExist(err) {
@@ -15,6 +16,7 @@ func fileExists(filename string) bool {
 	return !info.IsDir()
 }
 
+// toDoListFromFile : read data from the file and convert it to toDoList
 func toDoListFromFile(filename string) toDoList {
 	byteSlice, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -35,6 +37,7 @@ func toDoListFromFile(filename string) toDoList {
 	return toDoList
 }
 
+// toDoListToFile : convert toDoList to string and write to the file | ignore done task(s) to be cleared, if any
 func toDoListToFile(filename string, tdl toDoList, deleteIndexes ...int) error {
 	return ioutil.WriteFile(filename, []byte(tdl.toString(deleteIndexes...)), 0666)
 }

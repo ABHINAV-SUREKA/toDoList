@@ -6,14 +6,17 @@ import (
 	"strings"
 )
 
+// newTask : initialise new task
 func newTask() task {
 	return task{}
 }
 
+// newToDoList : initialise new toDoList
 func newToDoList() toDoList {
 	return toDoList{}
 }
 
+// toString : convert all tasks in toDoList to string | excludes a task while conversion if found in delete index
 func (tdl toDoList) toString(deleteIndexes ...int) string {
 	toDoListStr := ""
 	if len(deleteIndexes) != 0 {
@@ -34,6 +37,7 @@ func (tdl toDoList) toString(deleteIndexes ...int) string {
 	return toDoListStr
 }
 
+// unDoneTasksToString : convert undone task(s) from toDoList to string
 func (tdl toDoList) unDoneTasksToString() string {
 	toDoListStr := ""
 	if len(tdl) == 0 {
@@ -41,7 +45,7 @@ func (tdl toDoList) unDoneTasksToString() string {
 	}
 	for i, task := range tdl {
 		if task.done == "undone" {
-			toDoListStr = toDoListStr + fmt.Sprintf("%v %v\n", i, task.taskName)
+			toDoListStr = toDoListStr + fmt.Sprintf("%v %v\n", i+1, task.taskName)
 		}
 	}
 	unDoneTasksStr := strings.TrimSuffix(toDoListStr, "\n")
@@ -51,6 +55,7 @@ func (tdl toDoList) unDoneTasksToString() string {
 	return "Tasks to be done:\n" + unDoneTasksStr
 }
 
+// addTask : add a task to toDoList
 func (tdl *toDoList) addTask(taskName string) {
 	task := task{
 		taskName: taskName,
@@ -59,6 +64,7 @@ func (tdl *toDoList) addTask(taskName string) {
 	*tdl = append(*tdl, task)
 }
 
+// markDone : mark a task as done
 func (tdl *toDoList) markDone(fileName string, taskId int) {
 	if taskId > len(*tdl)-1 || taskId < 0 {
 		fmt.Println("Error: Invalid task id. Try again")
@@ -78,17 +84,18 @@ func (tdl *toDoList) markDone(fileName string, taskId int) {
 					fmt.Println("Error:", err)
 					os.Exit(1)
 				} else {
-					fmt.Println(task.taskName + " marked as completed")
+					fmt.Println("'" + task.taskName + "' marked as completed")
 					return
 				}
 			} else {
-				fmt.Println(task.taskName + " is already done. Nothing to do")
+				fmt.Println("'" + task.taskName + "' is already done. Nothing to do")
 				return
 			}
 		}
 	}
 }
 
+// markUnDone : mark a task as undone
 func (tdl *toDoList) markUnDone(fileName string, taskId int) {
 	if taskId > len(*tdl)-1 || taskId < 0 {
 		fmt.Println("Error: Invalid task id. Try again")
@@ -108,17 +115,18 @@ func (tdl *toDoList) markUnDone(fileName string, taskId int) {
 					fmt.Println("Error:", err)
 					os.Exit(1)
 				} else {
-					fmt.Println(task.taskName + " marked as incomplete")
+					fmt.Println("'" + task.taskName + "' marked as incomplete")
 					return
 				}
 			} else {
-				fmt.Println(task.taskName + " has not been done yet. Nothing to do")
+				fmt.Println("'" + task.taskName + "' has not been done yet. Nothing to do")
 				return
 			}
 		}
 	}
 }
 
+// cleanupDoneTasks : cleanup all done task(s) from toDoList
 func (tdl *toDoList) cleanupDoneTasks(fileName string) {
 	if len(*tdl) == 0 {
 		fmt.Println("To Do List empty\nAdd new task")

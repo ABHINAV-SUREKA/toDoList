@@ -11,8 +11,10 @@ type task struct {
 }
 type toDoList []task
 
+// flat file to save the task(s)
 var filename = "_todolist"
 
+// Add : add a task
 func Add(taskName string) {
 	var toDoList toDoList
 	if fileExists(filename) {
@@ -26,10 +28,11 @@ func Add(taskName string) {
 		fmt.Println("Error:", err)
 		os.Exit(1)
 	} else {
-		fmt.Println(taskName + " added to the list")
+		fmt.Println("'" + taskName + "' added to the list")
 	}
 }
 
+// Done : mark a task as done
 func Done(taskId int) {
 	var toDoList toDoList
 	if fileExists(filename) {
@@ -40,6 +43,7 @@ func Done(taskId int) {
 	}
 }
 
+// UnDone : mark a task as undone
 func UnDone(taskId int) {
 	var toDoList toDoList
 	if fileExists(filename) {
@@ -50,6 +54,7 @@ func UnDone(taskId int) {
 	}
 }
 
+// List : list all undone task(s)
 func List() {
 	var toDoList toDoList
 	if fileExists(filename) {
@@ -60,6 +65,7 @@ func List() {
 	}
 }
 
+// Cleanup : clear all done task(s)
 func Cleanup() {
 	var toDoList toDoList
 	if fileExists(filename) {
