@@ -31,7 +31,7 @@ var todolistRootCmd = &cobra.Command{
 	Long:  "To Do List CLI is a tool to organise your daily tasks with add, remove, done and undone functionalities",
 }
 
-// todolistAddCmd represents the todolist command
+// todolistAddCmd represents the todolist add command
 var todolistAddCmd = &cobra.Command{
 	Use:                   "add <task_name>",
 	Short:                 "Add task to the list",
@@ -48,18 +48,19 @@ var todolistAddCmd = &cobra.Command{
 	},
 }
 
-// todolistCleanupCmd represents the todolist command
+// todolistCleanupCmd represents the todolist cleanup command
 var todolistCleanupCmd = &cobra.Command{
 	Use:                   "cleanup",
 	Short:                 "Cleanup done tasks",
 	Long:                  "Cleanup done tasks",
+	Args:                  cobra.ExactArgs(0),
 	DisableFlagsInUseLine: true,
 	Run: func(cmd *cobra.Command, args []string) {
 		todolist.Cleanup()
 	},
 }
 
-// todolistDoneCmd represents the todolist command
+// todolistDoneCmd represents the todolist done command
 var todolistDoneCmd = &cobra.Command{
 	Use:                   "done <task_id>",
 	Short:                 "Mark task as done",
@@ -78,18 +79,19 @@ var todolistDoneCmd = &cobra.Command{
 	},
 }
 
-// todolistListCmd represents the todolist command
+// todolistListCmd represents the todolist list command
 var todolistListCmd = &cobra.Command{
 	Use:                   "list",
 	Short:                 "List all tasks still to do",
 	Long:                  "List all tasks still to do",
+	Args:                  cobra.ExactArgs(0),
 	DisableFlagsInUseLine: true,
 	Run: func(cmd *cobra.Command, args []string) {
 		todolist.List()
 	},
 }
 
-// todolistUndoneCmd represents the todolist command
+// todolistUndoneCmd represents the todolist undone command
 var todolistUndoneCmd = &cobra.Command{
 	Use:                   "undone <task_id>",
 	Short:                 "Mark task as not done",
