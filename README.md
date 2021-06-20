@@ -7,7 +7,7 @@
 5. `todolist undone [task_id]` - mark a task as in complete
 
 ### Installation and use
-Run the following command in your terminal: <br>
+Run the following command in your terminal to install and use the cli: <br>
 ```
 go install github.com/ABHINAV-SUREKA/toDoList
 todolist --help
