@@ -1,5 +1,5 @@
 /*
-Copyright © 2021 NAME HERE <EMAIL ADDRESS>
+Copyright © 2021 ABHINAV SUREKA <sureka.abhinav@gmail.com>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -116,20 +116,7 @@ func Execute() {
 	cobra.CheckErr(todolistRootCmd.Execute())
 }
 
+// init initialises cli with root and local commands
 func init() {
 	todolistRootCmd.AddCommand(todolistAddCmd, todolistCleanupCmd, todolistDoneCmd, todolistListCmd, todolistUndoneCmd)
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// todolistCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// todolistCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	//todolistRootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.toDoList.yaml)")
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	//todolistRootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
