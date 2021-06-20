@@ -1,5 +1,5 @@
 # toDoList
-#####To Do List CLI is a [Golang](https://golang.org/) CLI, created using [Cobra](https://github.com/spf13/cobra), to help you organise your daily tasks with following functionalities:
+##### To Do List CLI is a [Golang](https://golang.org/) CLI, created using [Cobra](https://github.com/spf13/cobra), to help you organise your daily tasks with following functionalities:
 1. `todolist add [task_name]` - add a task
 2. `todolist list` - list all incomplete tasks
 3. `todolist cleanup` - clear all completed tasks
