@@ -17,11 +17,11 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/ABHINAV-SUREKA/toDoList/todolist"
 	"github.com/spf13/cobra"
 	"os"
 	"strconv"
 	"strings"
-	"toDoList/todolist"
 )
 
 // todolistRootCmd represents the todolist command
