@@ -46,4 +46,4 @@ In case the above installation doesn't work, run the `./main` executable file as
 
 <i>OR</i>
 
-Run the $GOPATH`/bin/todolist` executable file in similar manner to above
+Run the $GOPATH`/bin/todolist` executable file in manner similar to above
