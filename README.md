@@ -7,8 +7,11 @@
 5. `todolist undone [task_id]` - mark a task as in complete
 
 ### Installation and use
-Run the following command in your terminal to install and use the cli: <br>
+Run the following command in your terminal (inside $GOPATH/src) to install and use the cli: <br>
 ```
+git clone git@github.com:ABHINAV-SUREKA/toDoList.git
+cd toDoList
+go get
 go install github.com/ABHINAV-SUREKA/toDoList
 todolist --help
 ```
@@ -41,3 +44,7 @@ In case the above installation doesn't work, run the `./main` executable file as
 * `./main cleanup` - clear all completed tasks
 * `./main done [task_id]` - mark a task as complete
 * `./main undone [task_id]` - mark a task as in complete
+
+<i>OR</i>
+
+Run the $GOPATH`/bin/todolist` executable file in similar manner to above
