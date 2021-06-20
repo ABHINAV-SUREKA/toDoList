@@ -12,7 +12,6 @@ Run the following command in your terminal (inside $GOPATH/src) to install and u
 git clone git@github.com:ABHINAV-SUREKA/toDoList.git
 cd toDoList
 go get
-go install github.com/ABHINAV-SUREKA/toDoList
 todolist --help
 ```
 Output:
